@@ -1,0 +1,14 @@
+{
+  "name": "yelp-camp",
+  "version": "1.0.0",
+  "description": "yelp like application for campsites.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "yelp-camp"
+  ],
+  "author": "Brady Bovero",
+  "license": "ISC"
+}
