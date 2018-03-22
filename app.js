@@ -22,8 +22,8 @@ app.get("/", (req, res) => {
 
 //import routes
 require("./routes/campgrounds")(app);
-//require("./routes/comments")(app);
-//require("./routes/profile")(app);
+require("./routes/comments")(app);
+require("./routes/profile")(app);
 
 //CATCH ALL
 app.get("*", (req, res) => {
