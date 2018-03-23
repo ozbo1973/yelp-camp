@@ -1,4 +1,4 @@
-//seed the database for dev
+//seed the database for development
 const mongoose = require("mongoose"),
   { Campground, Comment, User } = require("../models"),
   data = require("./data");
