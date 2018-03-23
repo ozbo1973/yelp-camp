@@ -2,6 +2,7 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
   methodOverride = require("method-override"),
+  seedDB = require("./seedData/seed"),
   app = express(),
   dbURL = process.env.DBURL || "mongodb://localhost/yelp_camp",
   PORT = process.env.PORT || 3000;
@@ -13,6 +14,9 @@ app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
 //DB connection
+if (process.env.ENVIRONMENT !== "production") {
+  seedDB();
+}
 mongoose.connect(dbURL);
 
 //Route

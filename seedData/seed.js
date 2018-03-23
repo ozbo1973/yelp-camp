@@ -20,7 +20,7 @@ module.exports = () => {
 
       //*******populate database
       data.forEach(seed => {
-        Campgound.create(seed, (err, campCreated) => {
+        Campground.create(seed, (err, campCreated) => {
           if (err) {
             console.log(err.message);
             return;
