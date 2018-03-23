@@ -1,5 +1,10 @@
 <% include ../partials/header %>
   <h1>Campgrounds Index</h1>
   <a href="/campgrounds/new">Add New Camp</a>
-  <a href="/campgrounds/abc">View Camp</a>
+
+  <% camps.forEach(camp=>{ %>
+    <h4>Name: <%=camp.name%></h4>
+    <a href="/campgrounds/<%=camp._id %>">View Camp</a>
+
+<%  }) %>
 <% include ../partials/footer %>

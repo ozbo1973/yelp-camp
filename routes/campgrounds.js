@@ -1,13 +1,20 @@
 //campgrounds route
 
-const { route } = require("../middleware");
+const { route } = require("../middleware"),
+  { Campground } = require("../models");
 
 const r = route("campgrounds", "campgrounds");
 
 module.exports = app => {
   //campground index
   app.get(r.rt("index"), (req, res) => {
-    res.render(r.view("index"));
+    Campground.find({}, (err, camps) => {
+      if (err) {
+        console.log(err.message);
+        return res.redirect(r.redirectHome(""));
+      }
+      res.render(r.view("index"), { camps });
+    });
   });
 
   // Campground new

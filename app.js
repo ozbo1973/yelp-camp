@@ -3,7 +3,7 @@ const express = require("express"),
   mongoose = require("mongoose"),
   methodOverride = require("method-override"),
   app = express(),
-  dbURL = process.env.DBURL || "mongodb:localhost/yelp_camp",
+  dbURL = process.env.DBURL || "mongodb://localhost/yelp_camp",
   PORT = process.env.PORT || 3000;
 
 //config
@@ -13,7 +13,7 @@ app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
 //DB connection
-//mongoose.connect(dbURL);
+mongoose.connect(dbURL);
 
 //Route
 app.get("/", (req, res) => {
