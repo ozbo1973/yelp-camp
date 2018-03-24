@@ -8,9 +8,8 @@ module.exports = (name, home) => {
     homeDirID: "/" + home + "/:id",
     name: name,
 
-    //restful routes abbrv
-    rt: function(restFull, strID) {
-      strID = strID || "id";
+    //restful routes fullname
+    rt: function(restFull = "index", strID = "id") {
       const route = {
         index: "/" + name,
         create: "/" + name,
@@ -23,6 +22,22 @@ module.exports = (name, home) => {
       return route[restFull];
     },
 
+    i: "/" + name, //index
+    c: "/" + name, //create
+    n: "/" + name + "/new", //new
+    e: function(strID = "id") {
+      return "/" + name + "/:" + strID + "/edit"; //edit
+    },
+    s: function(strID = "id") {
+      return "/" + name + "/:" + strID; //show
+    },
+    u: function(strID = "id") {
+      return "/" + name + "/:" + strID; //update
+    },
+    d: function(strID = "id") {
+      return "/" + name + "/:" + strID; //destroy
+    },
+
     //views
     view: function(restFull) {
       return name + "/" + restFull;
@@ -30,7 +45,7 @@ module.exports = (name, home) => {
 
     //redirects
     redirectUpdate: function(id) {
-      return "/" + home + "/" + id;
+      return "/" + name + "/" + id;
     },
     redirectHome: function(id) {
       if (id) {

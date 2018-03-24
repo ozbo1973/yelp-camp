@@ -1,6 +1,6 @@
 //routes index
-const route = require('./rootRoute')
+const route = require("./rootRoute");
 
 module.exports = {
   route
-}
+};

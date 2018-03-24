@@ -1,7 +1,10 @@
 const express = require("express"),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
+  passport = require("passport"),
+  LocalStrategy = require("passport-local"),
   methodOverride = require("method-override"),
+  { Campground, Comment, User } = require("./models"),
   seedDB = require("./seedData/seed"),
   app = express(),
   dbURL = process.env.DBURL || "mongodb://localhost/yelp_camp",
@@ -19,7 +22,28 @@ if (process.env.ENVIRONMENT !== "production") {
 }
 mongoose.connect(dbURL);
 
-//Route
+//passport
+app.use(
+  require("express-session")({
+    secret: "abdiciiseksioifdioaoisiadil",
+    resave: false,
+    saveUninitialized: false
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//local variables
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
+//Routes
 app.get("/", (req, res) => {
   res.render("landing");
 });

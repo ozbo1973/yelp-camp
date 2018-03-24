@@ -5,7 +5,7 @@ const data = [
     price: 9.5,
     img: "https://farm8.staticflickr.com/7109/7138696135_040fe62440.jpg",
     author: {
-      id: "5a9a13d5cd256702548e7abc",
+      id: "5ab671781c6b6216e437287c",
       username: "ozbo1973"
     },
     description:
@@ -16,7 +16,7 @@ const data = [
     price: 9.75,
     img: "https://farm9.staticflickr.com/8153/7132199669_263d214529.jpg",
     author: {
-      id: "5a9a13d5cd256702548e7abc",
+      id: "5ab671781c6b6216e437287c",
       username: "ozbo1973"
     },
     description:
@@ -27,7 +27,7 @@ const data = [
     price: 9.25,
     img: "https://farm1.staticflickr.com/480/20308338818_c72afe72bc.jpg",
     author: {
-      id: "5a9a13d5cd256702548e7abc",
+      id: "5ab671781c6b6216e437287c",
       username: "ozbo1973"
     },
     description:
@@ -38,7 +38,7 @@ const data = [
     price: 9.5,
     img: "https://farm8.staticflickr.com/7109/7138696135_040fe62440.jpg",
     author: {
-      id: "5a9a13d5cd256702548e7abc",
+      id: "5ab671781c6b6216e437287c",
       username: "ozbo1973"
     },
     description:

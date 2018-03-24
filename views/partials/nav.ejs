@@ -18,9 +18,11 @@
         <!-- left nav -->
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/profile">Login</a></li>
-          <li><a href="/profile/abc">Profile</a></li>
+          <% if(currentUser){ %>
+            <li><a href="/profile/<%=currentUser.id%>">Profile</a></li>
+        <%  } %>
           <li><a href="/profile/new">Sign Up</a></li>
-          <li><a href="#">Logout</a></li>
+          <li><a href="/profile/logout">Logout</a></li>
         </ul>
         <!-- ./right nav -->
     </div>

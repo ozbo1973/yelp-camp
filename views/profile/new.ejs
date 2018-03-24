@@ -1,8 +1,52 @@
-
+<!-- new user form -->
 <% include ../partials/header %>
-  <h1>Create New Account</h1>
-  <form class="form-group" action="/profile" method="POST">
-    <button class="btn btn-default" type="submit" name="button">Add New User</button>
-  </form>
-  <a href="/">back</a>
+  <div class="all-forms">
+    <div class="row">
+      <h1 class="heading">Register for YelpCamp</h1>
+      <div class="form-wrapper">
+        <form action="/profile" method="POST">
+          <div class="form-group">
+            <label for="username">Create Username:</label>
+            <input class="form-control" type="text" name="username" placeholder="Username">
+          </div>
+
+          <div class="form-group">
+            <label for="avatar">Enter Avatar image:</label>
+            <input class="form-control" type="text" name="avatar" placeholder="Avatar Image">
+          </div>
+
+          <div class="form-group">
+            <label for="firstname">Enter First Name:</label>
+            <input class="form-control" type="text" name="firstname" placeholder="First Name">
+          </div>
+
+          <div class="form-group">
+            <label for="lastname">Enter Last Name:</label>
+            <input class="form-control" type="text" name="lastname" placeholder="Last Name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Enter Email Address:</label>
+            <input class="form-control" type="email" name="email" placeholder="Email">
+          </div>
+
+          <div class="form-group">
+            <label for="isAdmin">Enter Admin Code:</label>
+            <input class="form-control" type="password" name="isAdmin" placeholder="Admin Code">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Create Password:</label>
+            <input class="form-control" type="password" name="password" placeholder="password">
+          </div>
+
+          <button class="btn btn-success btn-block" type="submit" name="button">Register</button>
+          <a class="btn btn-danger btn-block" href="/">Cancel</a>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
 <% include ../partials/footer %>

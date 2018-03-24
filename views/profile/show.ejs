@@ -1,8 +1,35 @@
 <% include ../partials/header %>
-  <h1>Show single Profile</h1>
-  <a class="btn btn-default" href="/profile/abc/edit">edit profile</a>
-  <form class="" action="/profile/abc?_method=DELETE" method="post">
-    <button class="btn btn-default" type="submit" name="button">Delete Profile</button>
-  </form>
+  <div class="row">
+    <h1 class="heading"><%= foundUser.firstname %>'s Profile</h1>
+    <div class="col-md-4">
+      <div class="thumbnail">
+        <img class="img-responsive" src="<%= foundUser.avatar %>" alt="">
+      </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-md-8">
+      <div class="well">
+        <h3 class="heading"><%= foundUser.firstname %>'s Camps Posted</h3>
+        <hr>
+        <ul>
+          <% userCamps.forEach(camp => { %>
+            <li class="list-group"><a href="#"> <%=camp.name%></a> (created: <%=camp.createdAt%>) <a class="btn btn-warning btn-xs" href="#">Edit</a> <a class="btn btn-danger btn-xs" href="#">Delete</a> </li>
+        <%  }) %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- ./row -->
+  <div class="row">
+    <div class="col-md-12">
+      <form class="form-inline" action="/profile/<%=foundUser._id %>?_method=DELETE" method="post">
+        <a class="btn btn-success" href="/profile/<%=foundUser._id %>/edit">Edit profile</a>
+        <button class="btn btn-danger" type="submit" name="button">Delete Profile</button>
+      </form>
+
+    </div>
+    <!-- ./col -->
+  </div>
+  <!-- ./row -->
 
 <% include ../partials/footer %>

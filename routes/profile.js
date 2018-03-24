@@ -1,46 +1,106 @@
 //profile routes
-const { route } = require("../middleware");
+const passport = require("passport"),
+  { route } = require("../middleware"),
+  { User, Campground } = require("../models");
 
 r = route("profile", "campgrounds");
 
 module.exports = app => {
   // login
-  app.get(r.rt("index"), (req, res) => {
+  app.get(r.i, (req, res) => {
     res.render(r.view("index"));
   });
 
-  //authenticate
-  app.post(r.rt("index") + "/login", (req, res) => {
-    res.send("logged in");
+  //authenticate login
+  app.post(
+    r.i + "/login",
+    passport.authenticate("local", {
+      successRedirect: r.redirectHome(""),
+      failureRedirect: r.rt("index")
+    }),
+    (req, res) => {
+      res.redirect(r.redirectHome(""));
+    }
+  );
+
+  //logout
+  app.get(r.i + "/logout", (req, res) => {
+    req.logout;
+    res.redirect("/");
   });
 
   //add new user and authenticate - new
-  app.get(r.rt("new"), (req, res) => {
+  app.get(r.n, (req, res) => {
     res.render(r.view("new"));
   });
 
   //create new user - create
-  app.post(r.rt("create"), (req, res) => {
-    res.send("Profile Created");
+  app.post(r.c, (req, res) => {
+    const { username, avatar, firstname, lastname, email, isAdmin } = req.body;
+    const newUser = new User({ username, avatar, firstname, lastname, email });
+    User.register(newUser, req.body.password, (err, user) => {
+      if (err) {
+        console.log(err);
+        return res.redirect("/");
+      }
+      passport.authenticate("local")(req, res, () => {
+        //req.flash("success", "Welcome to YelpCamp " + user.username);
+        res.redirect(r.redirectHome());
+      });
+    });
   });
 
   //show the profile - show
-  app.get(r.rt("show"), (req, res) => {
-    res.render(r.view("show"));
+  app.get(r.s(), (req, res) => {
+    User.findById(req.params.id, (err, foundUser) => {
+      if (err) {
+        console.log(err.message);
+        return res.redirect(r.redirectHome());
+      }
+      //find all users campgrounds
+      Campground.find()
+        .where("author.id")
+        .equals(foundUser._id)
+        .exec((err, userCamps) => {
+          if (err) {
+            console.log(err.message);
+            return res.redirect("back");
+          }
+          res.render(r.view("show"), { foundUser, userCamps });
+        });
+    });
   });
 
   //edit profile - edit
-  app.get(r.rt("edit"), (req, res) => {
+  app.get(r.e(), (req, res) => {
     res.render(r.view("edit"));
   });
 
   //update profile - update
-  app.put(r.rt("update"), (req, res) => {
-    res.send("profile updated");
+  app.put(r.u(), (req, res) => {
+    const { username, avatar, firstname, lastname, email } = req.body;
+    User.findByIdAndUpdate(
+      req.params.id,
+      { username, avatar, firstname, lastname, email },
+      (err, updatedUser) => {
+        if (err) {
+          console.log(err.message);
+          return redirect("back");
+        }
+        res.redirect(r.redirectUpdate(updatedUser._id));
+      }
+    );
   });
 
   //delete profile - delete
-  app.delete(r.rt("destroy"), (req, res) => {
-    res.send("profile deleted");
+  app.delete(r.d(), (req, res) => {
+    User.findByIdAndRemove(req.params.id, err => {
+      if (err) {
+        console.log(err.message);
+        return res.redirect("back");
+      }
+      req.logout;
+      res.redirect("/");
+    });
   });
 };

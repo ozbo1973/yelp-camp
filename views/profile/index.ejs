@@ -1,7 +1,26 @@
 <% include ../partials/header %>
-  <h1>Login Page</h1>
-  <form class="form-group" action="/profile/login" method="POST">
-    <button type="submit" name="button">submit</button>
-  </form>
-  <a href="/campgrounds">back</a>
+  <div class="all-forms">
+    <div class="row">
+      <h1 class="heading">Login to YelpCamp</h1>
+      <div class="form-wrapper">
+        <form action="/profile/login" method="POST">
+          <div class="form-group">
+            <label for="username">Enter Username:</label>
+            <input class="form-control" type="text" name="username" placeholder="username">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Enter Password:</label>
+            <input class="form-control" type="password" name="password" placeholder="password">
+          </div>
+
+          <button class="btn btn-success btn-block" type="submit" name="button">Login</button>
+          <a class="btn btn-danger btn-block" href="/campgrounds">Cancel</a>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
 <% include ../partials/footer %>
