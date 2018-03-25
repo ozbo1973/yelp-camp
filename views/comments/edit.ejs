@@ -1,9 +1,21 @@
 //edit comments
 
 <% include ../partials/header %>
-  <h1>Edit Comments Page</h1>
-  <form class="form-group" action="/campgrounds/abc/comments/abcd?_method=PUT" method="POST">
-    <button type="submit" name="button">submit</button>
-  </form>
-  <a href="/campgrounds/abc">back</a>
+  <div class="all-forms">
+    <h1>Edit Comments</h1>
+
+    <div class="forms-wrapper">
+      <form action="/campgrounds/<%=campID%>/comments/<%=foundComment._id%>?_method=PUT" method="POST">
+        <div class="form-group">
+          <label for="comment[text]">Change Text</label>
+          <input class="form-control" type="text" name="comment[text]" value="<%=foundComment.text%>">
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-block btn-success" type="submit" name="button">Submit Changes</button>
+          <a class="btn btn-block btn-danger" href="/campgrounds/<%=campID%>">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
 <% include ../partials/footer %>

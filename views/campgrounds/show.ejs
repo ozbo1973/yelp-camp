@@ -31,16 +31,16 @@
       </div>
 
       <div class="well">
-        <a class="btn btn-primary pull-right" href="/campgrounds/abc/comments/new">Add New Comment</a>
+        <a class="btn btn-primary pull-right" href="/campgrounds/<%=foundCamp._id%>/comments/new">Add New Comment</a>
         <h4>Comments</h4>
         <hr>
         <% foundCamp.comments.forEach(comment =>{ %>
           <span class="pull-right"><%=comment.createdAt%></span>
-          <h4><%=comment.username%></h4>
+          <h4><strong><%=comment.author.username%></strong></h4>
           <p><%=comment.text%></p>
           <% if (comment) { %>
             <form class="form-inline" action="/campgrounds/<%=foundCamp._id%>/comments/<%=comment._id%>?_method=DELETE" method="post">
-              <a class="btn btn-warning btn-xs" href="/campgrounds/abc/comments/abcd/edit">Edit Comment</a>
+              <a class="btn btn-warning btn-xs" href="/campgrounds/<%=foundCamp._id%>/comments/<%=comment._id%>/edit">Edit Comment</a>
               <button class="btn btn-danger btn-xs" type="submit" name="button">Delete Comment</button>
             </form>
           <% } %>

@@ -28,7 +28,7 @@ module.exports = () => {
           Comment.create(
             {
               text: "This is the place to Camp",
-              author: { id: "5a9a13d5cd256702548e7abc", username: "ozbo1973" }
+              author: { id: "5ab671781c6b6216e437287c", username: "ozbo1973" }
             },
             (err, commentCreated) => {
               if (err) {

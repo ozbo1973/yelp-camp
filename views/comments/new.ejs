@@ -1,7 +1,22 @@
 <% include ../partials/header %>
-  <h1>Create Comment</h1>
-  <form class="form-group" action="/campgrounds/abc/comments" method="POST">
-    <button type="submit" name="button">Add Comment</button>
-  </form>
-  <a href="/campgrounds">back</a>
+  <div class="all-forms">
+    <div class="row">
+      <h1>Create Comment</h1>
+      <div class="form-wrapper">
+        <form action="/campgrounds/<%=camp%>/comments" method="POST">
+          <div class="form-group">
+            <label for="comment[text]">Enter Text:</label>
+            <input class="form-control" type="text" name="comment[text]" placeholder="text">
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-block btn-success" type="submit" name="button">Add Comment</button>
+            <a class="btn btn-block btn-danger" href="/campgrounds/<%=camp%>">Cancel</a>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
 <% include ../partials/footer %>
