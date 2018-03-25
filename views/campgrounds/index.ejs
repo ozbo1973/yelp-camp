@@ -1,10 +1,24 @@
 <% include ../partials/header %>
-  <h1>Campgrounds Index</h1>
-  <a href="/campgrounds/new">Add New Camp</a>
+  <div class="row">
+    <div class="jumbotron">
+      <h1>YelpCamp Campgrounds</h1>
+      <a class="btn btn-lg btn-primary" href="/campgrounds/new">Add New Camp</a>
 
-  <% camps.forEach(camp=>{ %>
-    <h4>Name: <%=camp.name%></h4>
-    <a href="/campgrounds/<%=camp._id %>">View Camp</a>
+    </div>
+  </div>
 
-<%  }) %>
+  <div class="index-grid row text-center">
+    <% camps.forEach(camp=>{ %>
+      <div class="camp-show col-md-4 col-sm-6">
+        <div class="thumbnail">
+          <img class="img-responsive" src="<%=camp.img%>" alt="">
+        </div>
+        <div class="caption">
+          <h4>Name: <%=camp.name%></h4>
+          <a class="btn btn-md btn-primary" href="/campgrounds/<%=camp._id %>">View Camp</a>
+        </div>
+      </div>
+    <%  }) %>
+  </div>
+
 <% include ../partials/footer %>

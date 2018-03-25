@@ -27,6 +27,6 @@ module.exports = app => {
 
   //destroy comments
   app.delete(r.homeDirID + r.rt("destroy", "commentID"), (req, res) => {
-    res.redirect(r.redirectHome(req.params.id));
+    res.redirect(r.redirectHome());
   });
 };

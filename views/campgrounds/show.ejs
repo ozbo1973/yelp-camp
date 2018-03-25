@@ -1,15 +1,57 @@
 <% include ../partials/header %>
-  <h1>Show single campground</h1>
 
-  <a class="btn btn-default" href="/campgrounds/abc/edit">edit Camp</a>
-    <form class="" action="/campgrounds/abc>?_method=DELETE" method="post">
-      <button class="btn btn-default" type="submit" name="button">Delete</button>
-    </form>
+  <div class="row">
+    <div class="col-md-3">
+      <h1>YelpCamp</h1>
+      <ul class="list-group">
+        <li class="list-group-item"><a class="btn btn-block btn-warning" href="/campgrounds/<%=foundCamp._id%>/edit">Edit Campground</a> </li>
+        <li class="list-group-item">
+          <form class="" action="/campgrounds/<%=foundCamp._id%>>?_method=DELETE" method="post">
+            <button class="btn btn-block btn-danger" type="submit" name="button">Delete</button>
+          </form>
+        </li>
+        <li class="list-group-item"><a class="btn btn-block btn-primary" href="/campgrounds/new">Add New Campground</a></li>
+      </ul>
 
-  <h2>Comments</h2>
-  <a class="btn btn-default" href="/campgrounds/abc/comments/new">Add New Comment</a>
-  <a class="btn btn-default" href="/campgrounds/abc/comments/abcd/edit">Edit Comment</a>
-  <form class="" action="/campgrounds/abc/comments/abcd?_method=DELETE" method="post">
-    <button class="btn btn-default" type="submit" name="button">Delete Comment</button>
-  </form>
+      <div class="">
+        <h3><%=foundCamp.name %>'s location</h3>
+      </div>
+    </div>
+
+    <div class="camp-show-single col-md-9">
+      <div class="thumbnail">
+        <img class="img-responsive" src="<%=foundCamp.img%>" alt="">
+      </div>
+
+      <div class="caption">
+        <h4 class="pull-right"><%=foundCamp.price%> / night</h4>
+        <h4><%=foundCamp.name%></h4>
+        <p><%=foundCamp.description%></p>
+        <p>submitted by: <%=foundCamp.author.username%> <em><%=foundCamp.createdAt%></em> </p>
+      </div>
+
+      <div class="well">
+        <a class="btn btn-primary pull-right" href="/campgrounds/abc/comments/new">Add New Comment</a>
+        <h4>Comments</h4>
+        <hr>
+        <% foundCamp.comments.forEach(comment =>{ %>
+          <span class="pull-right"><%=comment.createdAt%></span>
+          <h4><%=comment.username%></h4>
+          <p><%=comment.text%></p>
+          <% if (comment) { %>
+            <form class="form-inline" action="/campgrounds/<%=foundCamp._id%>/comments/<%=comment._id%>?_method=DELETE" method="post">
+              <a class="btn btn-warning btn-xs" href="/campgrounds/abc/comments/abcd/edit">Edit Comment</a>
+              <button class="btn btn-danger btn-xs" type="submit" name="button">Delete Comment</button>
+            </form>
+          <% } %>
+        <% }) %>
+
+
+      </div>
+    </div>
+
+  </div>
+
+
+
 <% include ../partials/footer %>

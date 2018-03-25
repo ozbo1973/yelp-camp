@@ -7,43 +7,51 @@ const r = route("campgrounds", "campgrounds");
 
 module.exports = app => {
   //campground index
-  app.get(r.rt("index"), (req, res) => {
+  app.get(r.i, (req, res) => {
     Campground.find({}, (err, camps) => {
       if (err) {
         console.log(err.message);
-        return res.redirect(r.redirectHome(""));
+        return res.redirect(r.redirectHome());
       }
       res.render(r.view("index"), { camps });
     });
   });
 
   // Campground new
-  app.get(r.rt("new"), (req, res) => {
+  app.get(r.n, (req, res) => {
     res.render(r.view("new"));
   });
 
   // Campground create
-  app.post(r.rt("create"), (req, res) => {
+  app.post(r.c, (req, res) => {
     res.redirect(r.redirectHome(""));
   });
 
   //campground show
-  app.get(r.rt("show"), (req, res) => {
-    res.render(r.view("show"));
+  app.get(r.s(), (req, res) => {
+    Campground.findById(req.params.id)
+      .populate("comments")
+      .exec((err, foundCamp) => {
+        if (err) {
+          console.log(err.message);
+          return res.redirect(r.redirectHome());
+        }
+        res.render(r.view("show"), { foundCamp });
+      });
   });
 
   //campground edit
-  app.get(r.rt("edit"), (req, res) => {
+  app.get(r.e(), (req, res) => {
     res.render(r.view("edit"));
   });
 
   //campground update
-  app.put(r.rt("update"), (req, res) => {
+  app.put(r.u(), (req, res) => {
     res.redirect(r.redirectHome(req.params.id));
   });
 
   //campground destroy
-  app.delete(r.rt("destroy"), (req, res) => {
+  app.delete(r.d(), (req, res) => {
     res.redirect(r.redirectHome());
   });
 };

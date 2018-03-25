@@ -1,0 +1,35 @@
+html,
+body {
+  font-size: 16px;
+}
+
+/* Campground index grid layout */
+
+.index-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.thumbnail {
+  padding: 0;
+}
+
+.thumbnail img {
+  width: 100%;
+}
+
+.camp-show {
+  margin-bottom: 1rem;
+}
+
+.camp-show .thumbnail img {
+  height: 18em;
+}
+
+//campground single
+.camp-show-single {
+  margin-bottom: 1rem;
+}
+.camp-show-single .thumbnail img {
+  height: 25em;
+}
