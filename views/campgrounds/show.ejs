@@ -4,12 +4,15 @@
     <div class="col-md-3">
       <h1>YelpCamp</h1>
       <ul class="list-group">
-        <li class="list-group-item"><a class="btn btn-block btn-warning" href="/campgrounds/<%=foundCamp._id%>/edit">Edit Campground</a> </li>
-        <li class="list-group-item">
-          <form class="" action="/campgrounds/<%=foundCamp._id%>>?_method=DELETE" method="post">
-            <button class="btn btn-block btn-danger" type="submit" name="button">Delete</button>
-          </form>
-        </li>
+        <% if (currentUser && foundCamp.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+          <li class="list-group-item"><a class="btn btn-block btn-warning" href="/campgrounds/<%=foundCamp._id%>/edit">Edit Campground</a> </li>
+          <li class="list-group-item">
+            <form class="" action="/campgrounds/<%=foundCamp._id%>?_method=DELETE" method="post">
+              <button class="btn btn-block btn-danger" type="submit" name="button">Delete</button>
+            </form>
+          </li>
+        <% } %>
+
         <li class="list-group-item"><a class="btn btn-block btn-primary" href="/campgrounds/new">Add New Campground</a></li>
       </ul>
 
@@ -38,9 +41,9 @@
           <span class="pull-right"><%=comment.createdAt%></span>
           <h4><strong><%=comment.author.username%></strong></h4>
           <p><%=comment.text%></p>
-          <% if (comment) { %>
-            <form class="form-inline" action="/campgrounds/<%=foundCamp._id%>/comments/<%=comment._id%>?_method=DELETE" method="post">
-              <a class="btn btn-warning btn-xs" href="/campgrounds/<%=foundCamp._id%>/comments/<%=comment._id%>/edit">Edit Comment</a>
+          <% if (currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+            <form class="form-inline" action="/campgrounds/<%=foundCamp._id%>/comments/<%=comment.id%>?_method=DELETE" method="post">
+              <a class="btn btn-warning btn-xs" href="/campgrounds/<%=foundCamp._id%>/comments/<%=comment.id%>/edit">Edit Comment</a>
               <button class="btn btn-danger btn-xs" type="submit" name="button">Delete Comment</button>
             </form>
           <% } %>

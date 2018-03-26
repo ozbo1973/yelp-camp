@@ -13,7 +13,11 @@
         <hr>
         <ul>
           <% userCamps.forEach(camp => { %>
-            <li class="list-group"><a href="#"> <%=camp.name%></a> (created: <%=camp.createdAt%>) <a class="btn btn-warning btn-xs" href="#">Edit</a> <a class="btn btn-danger btn-xs" href="#">Delete</a> </li>
+            <li class="list-group"><a href="#"> <%=camp.name%></a> (created: <%=camp.createdAt%>)
+              <form class="form-inline" action="/campgrounds/<%=camp._id%>?_method=DELETE" method="post">
+                <a class="btn btn-warning btn-xs" href="/campgrounds/<%=camp._id%>/edit">Edit</a>
+                <button class="btn btn-danger btn-xs" type="submit" >Delete</button> </li>
+              </form>
         <%  }) %>
         </ul>
       </div>

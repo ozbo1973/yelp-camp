@@ -1,6 +1,6 @@
 //profile routes
 const passport = require("passport"),
-  { route } = require("../middleware"),
+  { route, isLoggedIn, profileOwner } = require("../middleware"),
   { User, Campground } = require("../models");
 
 r = route("profile", "campgrounds");
@@ -38,6 +38,10 @@ module.exports = app => {
   app.post(r.c, (req, res) => {
     const { username, avatar, firstname, lastname, email, isAdmin } = req.body;
     const newUser = new User({ username, avatar, firstname, lastname, email });
+    if (isAdmin === process.env.ADMIN_CODE) {
+      newUser.isAdmin = true;
+    }
+
     User.register(newUser, req.body.password, (err, user) => {
       if (err) {
         console.log(err);
@@ -51,7 +55,7 @@ module.exports = app => {
   });
 
   //show the profile - show
-  app.get(r.s(), (req, res) => {
+  app.get(r.s(), isLoggedIn, (req, res) => {
     User.findById(req.params.id, (err, foundUser) => {
       if (err) {
         console.log(err.message);
@@ -72,12 +76,12 @@ module.exports = app => {
   });
 
   //edit profile - edit
-  app.get(r.e(), (req, res) => {
+  app.get(r.e(), isLoggedIn, profileOwner, (req, res) => {
     res.render(r.view("edit"));
   });
 
   //update profile - update
-  app.put(r.u(), (req, res) => {
+  app.put(r.u(), isLoggedIn, profileOwner, (req, res) => {
     const { username, avatar, firstname, lastname, email } = req.body;
     User.findByIdAndUpdate(
       req.params.id,
@@ -93,7 +97,7 @@ module.exports = app => {
   });
 
   //delete profile - delete
-  app.delete(r.d(), (req, res) => {
+  app.delete(r.d(), isLoggedIn, profileOwner, (req, res) => {
     User.findByIdAndRemove(req.params.id, err => {
       if (err) {
         console.log(err.message);

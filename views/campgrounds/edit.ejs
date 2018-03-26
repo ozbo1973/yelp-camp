@@ -1,7 +1,37 @@
+
 <% include ../partials/header %>
-  <h1>Edit Campground Page</h1>
-  <form class="form-group" action="/campgrounds/abc?_method=PUT" method="POST">
-    <button type="submit" name="button">submit</button>
-  </form>
-  <a href="/campgrounds">back</a>
+  <div class="all-forms">
+    <h1>Edit <%=foundCamp.name%></h1>
+
+    <div class="forms-wrapper">
+      <form action="/campgrounds/<%=foundCamp._id%>?_method=PUT" method="POST">
+        <div class="forms-group">
+          <label for="camp[name]">Change Camp Name:</label>
+          <input class="form-control" type="text" name="camp[name]" value="<%=foundCamp.name%>" required>
+        </div>
+
+        <div class="forms-group">
+          <label for="camp[img]">Enter Camp Picture:</label>
+          <input class="form-control" type="text" name="camp[img]" value="<%=foundCamp.img%>" required>
+        </div>
+
+        <div class="forms-group">
+          <label for="camp[price]">Enter Camp Price per Night:</label>
+          <input class="form-control" type="number" name="camp[price]" value="<%=foundCamp.price%>" min=".01" step=".01" required>
+        </div>
+
+        <div class="forms-group">
+          <label for="camp[description]">Enter Camp Description:</label>
+          <input class="form-control" type="text" name="camp[description]" value="<%=foundCamp.description%>">
+        </div>
+
+        <div class="forms-group">
+          <button class="btn btn-block btn-success" type="submit" name="button">Submit Changes</button>
+          <a class="btn btn-block btn-danger" href="/campgrounds/<%=foundCamp._id%>">Cancel</a>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
 <% include ../partials/footer %>

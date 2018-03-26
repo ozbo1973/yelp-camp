@@ -1,7 +1,36 @@
 <% include ../partials/header %>
-  <h1>Create New Campground Page</h1>
-  <form class="form-group" action="/campgrounds" method="POST">
-    <button type="submit" name="button">submit</button>
-  </form>
-  <a href="/campgrounds">back</a>
+  <div class="all-forms">
+    <h1>Create New Campground Page</h1>
+
+    <div class="forms-wrapper">
+      <form action="/campgrounds" method="POST">
+        <div class="forms-group">
+          <label for="camp[name]">Enter Camp Name:</label>
+          <input class="form-control" type="text" name="camp[name]" placeholder="Name" required>
+        </div>
+
+        <div class="forms-group">
+          <label for="camp[img]">Enter Camp Picture:</label>
+          <input class="form-control" type="text" name="camp[img]" placeholder="Image" required>
+        </div>
+
+        <div class="forms-group">
+          <label for="camp[price]">Enter Camp Price per Night:</label>
+          <input class="form-control" type="number" name="camp[price]" placeholder="Price/Night" min=".01" step=".01" required>
+        </div>
+
+        <div class="forms-group">
+          <label for="camp[description]">Enter Camp Description:</label>
+          <input class="form-control" type="text" name="camp[description]" placeholder="Description">
+        </div>
+
+        <div class="forms-group">
+          <button class="btn btn-block btn-success" type="submit" name="button">Add Camp</button>
+          <a class="btn btn-block btn-danger" href="/campgrounds">Cancel</a>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
 <% include ../partials/footer %>
