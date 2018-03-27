@@ -5,15 +5,15 @@
       <h1>YelpCamp</h1>
       <ul class="list-group">
         <% if (currentUser && foundCamp.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-          <li class="list-group-item"><a class="btn btn-block btn-warning" href="/campgrounds/<%=foundCamp._id%>/edit">Edit Campground</a> </li>
+          <li class="list-group-item"><a class="btn btn-block btn-warning" href="/campgrounds/<%=foundCamp._id%>/edit"><span class="glyphicon glyphicon-pencil"></span> Edit Campground</a> </li>
           <li class="list-group-item">
             <form class="" action="/campgrounds/<%=foundCamp._id%>?_method=DELETE" method="post">
-              <button class="btn btn-block btn-danger" type="submit" name="button">Delete</button>
+              <button class="btn btn-block btn-danger" type="submit" name="button"><span class="glyphicon glyphicon-remove"></span> Delete</button>
             </form>
           </li>
         <% } %>
 
-        <li class="list-group-item"><a class="btn btn-block btn-primary" href="/campgrounds/new">Add New Campground</a></li>
+        <li class="list-group-item"><a class="btn btn-block btn-success" href="/campgrounds/new"><span class="glyphicon glyphicon-plus"></span> Add New Campground</a></li>
       </ul>
 
       <div class="">
@@ -27,24 +27,24 @@
       </div>
 
       <div class="caption">
-        <h4 class="pull-right"><%=foundCamp.price%> / night</h4>
-        <h4><%=foundCamp.name%></h4>
+        <h4 class="pull-right">$<em> <%=foundCamp.price%></em> / night</h4>
+        <h2><%=foundCamp.name%></h2>
         <p><%=foundCamp.description%></p>
-        <p>submitted by: <%=foundCamp.author.username%> <em><%=foundCamp.createdAt%></em> </p>
+        <p>submitted by: <strong><%=foundCamp.author.username%> / <%=moment(foundCamp.createdAt).fromNow()%></strong> </p>
       </div>
 
       <div class="well">
-        <a class="btn btn-primary pull-right" href="/campgrounds/<%=foundCamp._id%>/comments/new">Add New Comment</a>
-        <h4>Comments</h4>
+        <a class="btn btn-success pull-right" href="/campgrounds/<%=foundCamp._id%>/comments/new"><span class="glyphicon glyphicon-plus"></span> </a>
+        <h3>Comments</h3>
         <hr>
         <% foundCamp.comments.forEach(comment =>{ %>
-          <span class="pull-right"><%=comment.createdAt%></span>
+          <span class="pull-right"><%=moment(comment.createdAt).fromNow()%></span>
           <h4><strong><%=comment.author.username%></strong></h4>
           <p><%=comment.text%></p>
           <% if (currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
             <form class="form-inline" action="/campgrounds/<%=foundCamp._id%>/comments/<%=comment.id%>?_method=DELETE" method="post">
-              <a class="btn btn-warning btn-xs" href="/campgrounds/<%=foundCamp._id%>/comments/<%=comment.id%>/edit">Edit Comment</a>
-              <button class="btn btn-danger btn-xs" type="submit" name="button">Delete Comment</button>
+              <a class="btn btn-warning btn-xs" href="/campgrounds/<%=foundCamp._id%>/comments/<%=comment.id%>/edit"><span class="glyphicon glyphicon-pencil"></span> </a>
+              <button class="btn btn-danger btn-xs" type="submit" name="button"><span class="glyphicon glyphicon-remove"></span> </button>
             </form>
           <% } %>
         <% }) %>

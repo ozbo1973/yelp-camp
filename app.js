@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
+app.locals.moment = require("moment");
 
 //DB connection
 if (process.env.ENVIRONMENT !== "production") {
@@ -45,7 +46,7 @@ app.use((req, res, next) => {
 
 //Routes
 app.get("/", (req, res) => {
-  res.render("landing");
+  res.render("landing", { page: "landing" });
 });
 
 //import routes

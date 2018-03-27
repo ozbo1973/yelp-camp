@@ -1,8 +1,8 @@
 <% include ../partials/header %>
   <div class="row">
     <div class="jumbotron">
-      <h1>YelpCamp Campgrounds</h1>
-      <a class="btn btn-lg btn-primary" href="/campgrounds/new">Add New Camp</a>
+      <h1><span class="glyphicon glyphicon-tent"></span> YelpCamp Campgrounds</h1>
+      <a class="btn btn-lg btn-success" href="/campgrounds/new"><span class="glyphicon glyphicon-plus"></span> Add New Camp</a>
 
     </div>
   </div>
@@ -14,8 +14,8 @@
           <img class="img-responsive" src="<%=camp.img%>" alt="">
         </div>
         <div class="caption">
-          <h4>Name: <%=camp.name%></h4>
-          <a class="btn btn-md btn-primary" href="/campgrounds/<%=camp._id %>">View Camp</a>
+          <h4><%=camp.name%></h4>
+          <a class="btn btn-md btn-warning" href="/campgrounds/<%=camp._id %>"><span class="glyphicon glyphicon-fire"></span> View Camp</a>
         </div>
       </div>
     <%  }) %>
