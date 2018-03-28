@@ -4,6 +4,7 @@ const express = require("express"),
   passport = require("passport"),
   LocalStrategy = require("passport-local"),
   methodOverride = require("method-override"),
+  flash = require("connect-flash"),
   { Campground, Comment, User } = require("./models"),
   seedDB = require("./seedData/seed"),
   app = express(),
@@ -39,8 +40,11 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //local variables
+app.use(flash());
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.errMsg = req.flash("error");
+  res.locals.successMsg = req.flash("success");
   next();
 });
 

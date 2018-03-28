@@ -13,3 +13,8 @@
 
   </head>
   <body>
+    <% if (errMsg.length > 0 || successMsg.length > 0 ){ %>
+      <div class="container">
+        <% include msg %>
+      </div>
+    <% } %>

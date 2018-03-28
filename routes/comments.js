@@ -14,8 +14,8 @@ module.exports = app => {
   //create new comment
   app.post(r.homeDirID + r.c, isLoggedIn, (req, res) => {
     Campground.findById(req.params.id, (err, campFound) => {
-      if (err) {
-        console.log(err.message);
+      if (err || !campFound) {
+        req.flash("error", err.message || "Campground not found.");
         return res.redirect("back");
       }
 
@@ -28,13 +28,14 @@ module.exports = app => {
           }
         },
         (err, commentCreated) => {
-          if (err) {
-            console.log(err.message);
+          if (err || !commentCreated) {
+            req.flash("error", err.message || "Comment not created");
             return res.redirect("back");
           }
           commentCreated.save();
           campFound.comments.push(commentCreated._id);
           campFound.save();
+          req.flash("success", "Comment created.");
           res.redirect(r.redirectHome(req.params.id));
         }
       );
@@ -48,8 +49,8 @@ module.exports = app => {
     commentOwner,
     (req, res) => {
       Comment.findById(req.params.commentID, (err, foundComment) => {
-        if (err) {
-          console.log(err.message);
+        if (err || !foundComment) {
+          req.flash("error", err.message || "Comment not found.");
           return res.redirect("back");
         }
         res.render(r.view("edit"), { foundComment, campID: req.params.id });
@@ -67,10 +68,11 @@ module.exports = app => {
         req.params.commentID,
         req.body.comment,
         (err, editedComment) => {
-          if (err) {
-            console.log(err.message);
+          if (err || !editedComment) {
+            req.flash("error", err.message || "Comment not found.");
             return res.redirect("back");
           }
+          req.flash("success", "Comment has been edited.");
           res.redirect(r.redirectHome(req.params.id));
         }
       );
@@ -85,9 +87,10 @@ module.exports = app => {
     (req, res) => {
       Comment.findByIdAndRemove(req.params.commentID, err => {
         if (err) {
-          console.log(err.message);
+          req.flash("error", err.message);
           return res.redirect("back");
         }
+        req.flash("success", "Comment has been deleted.");
         res.redirect(r.redirectHome(req.params.id));
       });
     }

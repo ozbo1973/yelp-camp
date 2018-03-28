@@ -9,8 +9,8 @@ module.exports = app => {
   //campground index
   app.get(r.i, (req, res) => {
     Campground.find({}, (err, camps) => {
-      if (err) {
-        console.log(err.message);
+      if (err || !camps) {
+        req.flash("error", err.message || "Campgrounds not found.");
         return res.redirect(r.redirectHome());
       }
       res.render(r.view("index"), { camps, navPage: page("home") });
@@ -25,10 +25,11 @@ module.exports = app => {
   // Campground create
   app.post(r.c, isLoggedIn, (req, res) => {
     Campground.create(req.body.camp, (err, campCreated) => {
-      if (err) {
-        console.log(err.message);
+      if (err || !campCreated) {
+        req.flash("error", err.message || "Campground not Created.");
         return res.redirect("back");
       }
+      req.flash("success", "Campground created.");
       res.redirect(r.redirectHome(""));
     });
   });
@@ -38,8 +39,8 @@ module.exports = app => {
     Campground.findById(req.params.id)
       .populate("comments")
       .exec((err, foundCamp) => {
-        if (err) {
-          console.log(err.message);
+        if (err || !foundCamp) {
+          req.flash("error", err.message || "Campground not found");
           return res.redirect(r.redirectHome());
         }
         res.render(r.view("show"), { foundCamp });
@@ -49,8 +50,8 @@ module.exports = app => {
   //campground edit
   app.get(r.e(), isLoggedIn, campgroundOwner, (req, res) => {
     Campground.findById(req.params.id, (err, foundCamp) => {
-      if (err) {
-        console.log(err.message);
+      if (err || !foundCamp) {
+        req.flash("error", err.message || "Campground not found");
         return res.redirect("back");
       }
       res.render(r.view("edit"), { foundCamp });
@@ -63,10 +64,11 @@ module.exports = app => {
       req.params.id,
       req.body.camp,
       (err, foundCamp) => {
-        if (err) {
-          console.log(err.message);
+        if (err || !foundCamp) {
+          req.flash("error", err.message || "Campground not found");
           return res.redirect("back");
         }
+        req.flash("success", "Campground updated");
         res.redirect(r.redirectHome(req.params.id));
       }
     );
@@ -76,9 +78,10 @@ module.exports = app => {
   app.delete(r.d(), isLoggedIn, campgroundOwner, (req, res) => {
     Campground.findByIdAndRemove(req.params.id, err => {
       if (err) {
-        console.log(err.message);
+        req.flash("error", err.message || "Campground not found");
         return res.redirect("back");
       }
+      req.flash("success", "Campground Deleted");
       res.redirect(r.redirectHome());
     });
   });
