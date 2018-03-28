@@ -1,6 +1,6 @@
 //profile routes
 const passport = require("passport"),
-  { route, isLoggedIn, profileOwner } = require("../middleware"),
+  { route, page, isLoggedIn, profileOwner } = require("../middleware"),
   { User, Campground } = require("../models");
 
 r = route("profile", "campgrounds");
@@ -8,7 +8,7 @@ r = route("profile", "campgrounds");
 module.exports = app => {
   // login
   app.get(r.i, (req, res) => {
-    res.render(r.view("index"));
+    res.render(r.view("index"), { navPage: page("login") });
   });
 
   //authenticate login
@@ -25,13 +25,13 @@ module.exports = app => {
 
   //logout
   app.get(r.i + "/logout", (req, res) => {
-    req.logout;
+    req.logout();
     res.redirect("/");
   });
 
   //add new user and authenticate - new
   app.get(r.n, (req, res) => {
-    res.render(r.view("new"));
+    res.render(r.view("new"), { navPage: page("signup") });
   });
 
   //create new user - create
@@ -70,14 +70,18 @@ module.exports = app => {
             console.log(err.message);
             return res.redirect("back");
           }
-          res.render(r.view("show"), { foundUser, userCamps });
+          res.render(r.view("show"), {
+            foundUser,
+            userCamps,
+            navPage: page("profile")
+          });
         });
     });
   });
 
   //edit profile - edit
   app.get(r.e(), isLoggedIn, profileOwner, (req, res) => {
-    res.render(r.view("edit"));
+    res.render(r.view("edit"), { navPage: page("profile") });
   });
 
   //update profile - update

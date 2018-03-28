@@ -2,6 +2,11 @@ body {
   background: #000;
 }
 
+.btn-warning {
+  background-color: rgb(249, 130, 27);
+  border: 1px red solid;
+}
+
 #landing-header {
   z-index: 1;
   position: relative;

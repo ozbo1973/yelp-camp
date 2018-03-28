@@ -1,6 +1,6 @@
 html,
 body {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 h1,
@@ -14,11 +14,34 @@ h4 {
   font-weight: bolder;
 }
 
+p {
+  font-family: "Gloria Hallelujah", cursive;
+  font-size: 1.3rem;
+}
+
 .btn-warning {
   background-color: rgb(249, 130, 27);
   border: 1px red solid;
 }
 
+/* navigation */
+.navbar-default {
+  font-size: 1.3rem;
+  background-color: rgba(109, 174, 129, 0.5);
+  padding: 1rem;
+}
+
+.navbar-default .navbar-brand {
+  font-size: 1.6rem;
+  margin-right: 1rem;
+  color: rgb(249, 130, 27);
+}
+
+a.navbar-brand {
+  font-family: "Chicle", cursive;
+}
+
+/* forms style */
 .all-forms h1 {
   text-align: center;
 }
@@ -42,11 +65,17 @@ h4 {
   font-size: 1.5rem;
 }
 
+/* showing profile */
+.show-profile li {
+  font-size: 1.3rem;
+  font-family: "Source Code Pro", monospace;
+}
+
 /* Campground index grid layout */
 
 .jumbotron h1 {
   color: rgb(23, 94, 44);
-  font-size: 6rem;
+  font-size: 5rem;
 }
 
 .index-grid {

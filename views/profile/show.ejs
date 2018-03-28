@@ -5,35 +5,41 @@
       <div class="thumbnail">
         <img class="img-responsive" src="<%= foundUser.avatar %>" alt="">
       </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <form class="form-inline" action="/profile/<%=foundUser._id %>?_method=DELETE" method="post">
+            <a class="btn btn-success" href="/profile/<%=foundUser._id %>/edit"><span class="glyphicon glyphicon-pencil"></span> Edit profile</a>
+            <button class="btn btn-danger" type="submit" name="button"><span class="glyphicon glyphicon-remove"></span> Delete Profile</button>
+          </form>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- ./row -->
     </div>
     <!-- ./col -->
-    <div class="col-md-8">
+
+    <div class="show-profile col-md-8">
       <div class="well">
         <h3 class="heading"><%= foundUser.firstname %>'s Camps Posted</h3>
         <hr>
         <ul>
           <% userCamps.forEach(camp => { %>
-            <li class="list-group"><a href="#"> <%=camp.name%></a> (created: <%=camp.createdAt%>)
-              <form class="form-inline" action="/campgrounds/<%=camp._id%>?_method=DELETE" method="post">
-                <a class="btn btn-warning btn-xs" href="/campgrounds/<%=camp._id%>/edit">Edit</a>
-                <button class="btn btn-danger btn-xs" type="submit" >Delete</button> </li>
-              </form>
+            <li class="list-group"><a href="/campgrounds/<%=camp._id%>"> <%=camp.name%></a> (created: <%= moment(camp.createdAt).format('dddd, MMMM Do YYYY')%>)
+              <span class="pull-right">
+                <form class="form-inline" action="/campgrounds/<%=camp._id%>?_method=DELETE" method="post">
+                  <a class="btn btn-warning btn-xs" href="/campgrounds/<%=camp._id%>/edit"><span class="glyphicon glyphicon-pencil"></span></a>
+                  <button class="btn btn-danger btn-xs" type="submit" ><span class="glyphicon glyphicon-remove"></span></button>
+                </form>
+              </span>
+            </li>
+            <hr>
         <%  }) %>
         </ul>
       </div>
     </div>
   </div>
   <!-- ./row -->
-  <div class="row">
-    <div class="col-md-12">
-      <form class="form-inline" action="/profile/<%=foundUser._id %>?_method=DELETE" method="post">
-        <a class="btn btn-success" href="/profile/<%=foundUser._id %>/edit">Edit profile</a>
-        <button class="btn btn-danger" type="submit" name="button">Delete Profile</button>
-      </form>
 
-    </div>
-    <!-- ./col -->
-  </div>
-  <!-- ./row -->
 
 <% include ../partials/footer %>

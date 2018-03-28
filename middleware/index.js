@@ -4,7 +4,8 @@ const route = require("./rootRoute"),
   isAdmin = require("./isAdmin"),
   profileOwner = require("./profileOwner"),
   campgroundOwner = require("./campgroundOwner"),
-  commentOwner = require("./commentOwner");
+  commentOwner = require("./commentOwner"),
+  page = require("./pageNavigation");
 
 module.exports = {
   route,
@@ -12,5 +13,6 @@ module.exports = {
   isAdmin,
   profileOwner,
   campgroundOwner,
-  commentOwner
+  commentOwner,
+  page
 };

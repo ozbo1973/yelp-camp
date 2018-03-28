@@ -1,6 +1,6 @@
 //campgrounds route
 
-const { route, isLoggedIn, campgroundOwner } = require("../middleware"),
+const { route, page, isLoggedIn, campgroundOwner } = require("../middleware"),
   { Campground } = require("../models");
 
 const r = route("campgrounds", "campgrounds");
@@ -13,13 +13,13 @@ module.exports = app => {
         console.log(err.message);
         return res.redirect(r.redirectHome());
       }
-      res.render(r.view("index"), { camps });
+      res.render(r.view("index"), { camps, navPage: page("home") });
     });
   });
 
   // Campground new
   app.get(r.n, isLoggedIn, (req, res) => {
-    res.render(r.view("new"));
+    res.render(r.view("new"), { navPage: page("home") });
   });
 
   // Campground create
