@@ -20,7 +20,7 @@ app.set("view engine", "ejs");
 app.locals.moment = require("moment");
 
 //DB connection
-if (process.env.ENVIRONMENT !== "production") {
+if (process.env.NODE_ENV !== "production") {
   seedDB();
 }
 mongoose.connect(DBURL);
@@ -66,7 +66,7 @@ app.get("*", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
-  if (process.env.ENVIRONMENT !== "production") {
-    // console.log(process.env);
+  if (process.env.NODE_ENV !== "production") {
+    console.log(process.env.NODE_ENV);
   }
 });
