@@ -1,7 +1,7 @@
 //seed the database for development
 const mongoose = require("mongoose"),
   NodeGeocoder = require("node-geocoder"),
-  keys = require("../config"),
+  keys = require("../config/keys"),
   { Campground, Comment, User } = require("../models"),
   data = require("./data");
 

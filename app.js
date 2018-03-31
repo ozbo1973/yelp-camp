@@ -5,7 +5,7 @@ const express = require("express"),
   LocalStrategy = require("passport-local"),
   methodOverride = require("method-override"),
   flash = require("connect-flash"),
-  keys = require("./config/index"),
+  keys = require("./config/keys"),
   { Campground, Comment, User } = require("./models"),
   seedDB = require("./seedData/seed"),
   app = express(),
@@ -67,6 +67,6 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
   if (process.env.ENVIRONMENT !== "production") {
-    console.log(keys.ADMIN_CODE);
+    // console.log(process.env);
   }
 });

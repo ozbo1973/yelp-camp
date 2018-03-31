@@ -1,9 +1,7 @@
-//production Keys
+// Keys Configuration
 
-module.exports = {
-  ADMIN_CODE: process.env.ADMIN_CODE,
-  YELP_API_KEY: process.env.YELP_API_KEY,
-  GEO_CODE_API_KEY: process.env.GEO_CODE_API_KEY,
-  DBURL: process.env.DBURL,
-  PORT: process.env.PORT
-};
+if (process.env.ENVIRONMENT === "production") {
+  module.exports = require("./prodKeys");
+} else {
+  module.exports = require("./devKeys");
+}
