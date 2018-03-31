@@ -16,7 +16,8 @@ module.exports = app => {
     r.i + "/login",
     passport.authenticate("local", {
       successRedirect: r.homeDir,
-      failureRedirect: r.i
+      failureRedirect: r.i,
+      failureFlash: true
     }),
     (req, res) => {
       res.redirect(r.redirectHome(""));

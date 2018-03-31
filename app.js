@@ -5,11 +5,12 @@ const express = require("express"),
   LocalStrategy = require("passport-local"),
   methodOverride = require("method-override"),
   flash = require("connect-flash"),
+  keys = require("./config"),
   { Campground, Comment, User } = require("./models"),
   seedDB = require("./seedData/seed"),
   app = express(),
-  dbURL = process.env.DBURL || "mongodb://localhost/yelp_camp",
-  PORT = process.env.PORT || 3000;
+  DBURL = keys.DBURL,
+  PORT = keys.PORT;
 
 //config
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,7 +23,7 @@ app.locals.moment = require("moment");
 if (process.env.ENVIRONMENT !== "production") {
   seedDB();
 }
-mongoose.connect(dbURL);
+mongoose.connect(DBURL);
 
 //passport
 app.use(
@@ -65,4 +66,7 @@ app.get("*", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
+  if (process.env.ENVIRONMENT !== "production") {
+    console.log(keys.ADMIN_CODE);
+  }
 });

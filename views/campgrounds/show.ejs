@@ -14,11 +14,11 @@
         <% } %>
 
         <li class="list-group-item"><a class="btn btn-block btn-success" href="/campgrounds/new"><span class="glyphicon glyphicon-plus"></span> Add New Campground</a></li>
+        <li class="list-group-item"><a class="btn btn-block btn-primary" href="/campgrounds">Campground List</a></li>
       </ul>
 
-      <div class="">
-        <h3><%=foundCamp.name %>'s location</h3>
-      </div>
+      <div id="map"></div>
+      <h4><%=foundCamp.location%></h4>
     </div>
 
     <div class="camp-show-single col-md-9">
@@ -30,7 +30,7 @@
         <h4 class="pull-right">$<em> <%=foundCamp.price%></em> / night</h4>
         <h2><%=foundCamp.name%></h2>
         <p><%=foundCamp.description%></p>
-        <p>submitted by: <strong><%=foundCamp.author.username%> / <%=moment(foundCamp.createdAt).fromNow()%></strong> </p>
+        <p>submitted by: <strong><a href="/profile/<%=foundCamp.author.id%>"><%=foundCamp.author.username%></a> / <%=moment(foundCamp.createdAt).fromNow()%></strong> </p>
       </div>
 
       <div class="well">
@@ -39,7 +39,7 @@
         <hr>
         <% foundCamp.comments.forEach(comment =>{ %>
           <span class="pull-right"><%=moment(comment.createdAt).fromNow()%></span>
-          <h4><strong><%=comment.author.username%></strong></h4>
+          <h4><strong><a href="/profile/<%=comment.author.id%>"><%=comment.author.username%></a></strong></h4>
           <p><%=comment.text%></p>
           <% if (currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
             <form class="form-inline" action="/campgrounds/<%=foundCamp._id%>/comments/<%=comment.id%>?_method=DELETE" method="post">
@@ -55,6 +55,33 @@
 
   </div>
 
-
+  <script>
+  function initMap() {
+  const lat = <%=foundCamp.lat%>;
+  const lng = <%=foundCamp.lng%>;
+  const center = { lat: lat, lng: lng };
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 8,
+    center: center,
+    scrollwheel: false
+  });
+  const contentString = `
+      <strong><%= foundCamp.name %><br />
+      <%= foundCamp.location %></strong>
+      <p><%= foundCamp.description %></p>
+    `;
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+  const marker = new google.maps.Marker({
+    position: center,
+    map: map
+  });
+  marker.addListener("click", function() {
+    infowindow.open(map, marker);
+  });
+}
+</script>
+<script async defer src="<%=geoSrc%>"></script>
 
 <% include ../partials/footer %>

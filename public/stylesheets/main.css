@@ -108,6 +108,23 @@ a.navbar-brand {
   height: 25em;
 }
 
+.camp-show-single strong a:visited,
+.camp-show-single strong a:hover {
+  color: rgb(23, 94, 44);
+  font-size: 1em;
+}
+.camp-show-single strong a {
+  color: rgb(68, 195, 22);
+  text-decoration: underline;
+}
+
 .camp-show-single em {
   font-size: 1.5rem;
+}
+
+/* Google Maps */
+#map {
+  background-color: green;
+  height: 400px;
+  width: 100%;
 }

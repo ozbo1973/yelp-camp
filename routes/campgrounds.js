@@ -1,9 +1,23 @@
 //campgrounds route
 
 const { route, page, isLoggedIn, campgroundOwner } = require("../middleware"),
-  { Campground } = require("../models");
+  { Campground } = require("../models"),
+  keys = require("../config"),
+  NodeGeocoder = require("node-geocoder");
 
 const r = route("campgrounds", "campgrounds");
+
+//for geo coder
+const options = {
+  provider: "google",
+  httpAdapter: "https",
+  apiKey: keys.GEO_CODE_API_KEY,
+  formatter: null
+};
+const geoSrc = `https://maps.googleapis.com/maps/api/js?key=${
+  keys.YELP_API_KEY
+}&callback=initMap`;
+const geocoder = NodeGeocoder(options);
 
 module.exports = app => {
   //campground index
@@ -24,13 +38,26 @@ module.exports = app => {
 
   // Campground create
   app.post(r.c, isLoggedIn, (req, res) => {
-    Campground.create(req.body.camp, (err, campCreated) => {
-      if (err || !campCreated) {
-        req.flash("error", err.message || "Campground not Created.");
+    const newCampground = req.body.camp;
+    newCampground.author = { id: req.user._id, username: req.user.username };
+    geocoder.geocode(newCampground.location, function(err, data) {
+      if (err || !data.length) {
+        req.flash("error", err.message || "Invalid address");
         return res.redirect("back");
       }
-      req.flash("success", "Campground created.");
-      res.redirect(r.redirectHome(""));
+      newCampground.lat = data[0].latitude;
+      newCampground.lng = data[0].longitude;
+      newCampground.location = data[0].formattedAddress;
+
+      Campground.create(newCampground, (err, campCreated) => {
+        if (err || !campCreated) {
+          req.flash("error", err.message || "Campground not Created.");
+          return res.redirect("back");
+        }
+
+        req.flash("success", "Campground created.");
+        res.redirect(r.redirectHome(""));
+      });
     });
   });
 
@@ -43,7 +70,7 @@ module.exports = app => {
           req.flash("error", err.message || "Campground not found");
           return res.redirect(r.redirectHome());
         }
-        res.render(r.view("show"), { foundCamp });
+        res.render(r.view("show"), { foundCamp, geoSrc });
       });
   });
 
@@ -60,18 +87,29 @@ module.exports = app => {
 
   //campground update
   app.put(r.u(), isLoggedIn, campgroundOwner, (req, res) => {
-    Campground.findByIdAndUpdate(
-      req.params.id,
-      req.body.camp,
-      (err, foundCamp) => {
-        if (err || !foundCamp) {
-          req.flash("error", err.message || "Campground not found");
-          return res.redirect("back");
-        }
-        req.flash("success", "Campground updated");
-        res.redirect(r.redirectHome(req.params.id));
+    const updateCamp = req.body.camp;
+    geocoder.geocode(updateCamp.location, function(err, data) {
+      if (err || !data.length) {
+        req.flash("error", err.message || "Invalid address");
+        return res.redirect("back");
       }
-    );
+      updateCamp.lat = data[0].latitude;
+      updateCamp.lng = data[0].longitude;
+      updateCamp.location = data[0].formattedAddress;
+
+      Campground.findByIdAndUpdate(
+        req.params.id,
+        updateCamp,
+        (err, foundCamp) => {
+          if (err || !foundCamp) {
+            req.flash("error", err.message || "Campground not found");
+            return res.redirect("back");
+          }
+          req.flash("success", "Campground updated");
+          res.redirect(r.redirectHome(req.params.id));
+        }
+      );
+    });
   });
 
   //campground destroy
