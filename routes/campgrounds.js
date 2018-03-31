@@ -2,7 +2,7 @@
 
 const { route, page, isLoggedIn, campgroundOwner } = require("../middleware"),
   { Campground } = require("../models"),
-  keys = require("../config"),
+  keys = require("../config/index"),
   NodeGeocoder = require("node-geocoder");
 
 const r = route("campgrounds", "campgrounds");
