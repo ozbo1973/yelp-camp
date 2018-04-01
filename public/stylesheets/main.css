@@ -24,6 +24,15 @@ p {
   border: 1px red solid;
 }
 
+.thumbnail {
+  max-width: 600px;
+  padding: 0;
+}
+
+.thumbnail img {
+  width: 100%;
+}
+
 /* navigation */
 .navbar-default {
   font-size: 1.3rem;
@@ -83,14 +92,6 @@ a.navbar-brand {
   flex-wrap: wrap;
 }
 
-.thumbnail {
-  padding: 0;
-}
-
-.thumbnail img {
-  width: 100%;
-}
-
 .camp-show {
   margin-bottom: 1rem;
 }
@@ -105,12 +106,7 @@ a.navbar-brand {
   margin-bottom: 1rem;
 }
 
-.camp-show-single .thumbnail {
-  max-width: 600px;
-}
-
 .camp-show-single .thumbnail img {
-  /* max-width: 600px; */
   height: 25em;
 }
 
