@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col-md-3">
-      <h1>YelpCamp</h1>
+      <h1><%include ../partials/logo %></h1>
       <ul class="list-group">
         <% if (currentUser && foundCamp.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
           <li class="list-group-item"><a class="btn btn-block btn-warning" href="/campgrounds/<%=foundCamp._id%>/edit"><span class="glyphicon glyphicon-pencil"></span> Edit Campground</a> </li>

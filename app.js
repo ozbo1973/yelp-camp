@@ -1,8 +1,6 @@
 const express = require("express"),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
-  passport = require("passport"),
-  LocalStrategy = require("passport-local"),
   methodOverride = require("method-override"),
   flash = require("connect-flash"),
   keys = require("./config/keys"),
@@ -26,19 +24,7 @@ if (process.env.NODE_ENV !== "production") {
 mongoose.connect(DBURL);
 
 //passport
-app.use(
-  require("express-session")({
-    secret: "abdiciiseksioifdioaoisiadil",
-    resave: false,
-    saveUninitialized: false
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+require("./services/passport")(app);
 
 //local variables
 app.use(flash());
@@ -61,7 +47,8 @@ require("./routes/profile")(app);
 
 //CATCH ALL
 app.get("*", (req, res) => {
-  res.send("set up *");
+  req.flash("error", "Page not found");
+  res.redirect("/");
 });
 
 app.listen(PORT, () => {

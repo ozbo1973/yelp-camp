@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Yelp <span class="glyphicon glyphicon-tent"></span> Camp </a>
+      <a class="navbar-brand" href="/"><% include logo%> </a>
     </div>
     <!-- ./navbar header for brand and toggle -->
 
@@ -21,10 +21,11 @@
 
           <% if(currentUser){ %>
             <li class="<%=navPage.profile || ''%>">
-              <a href="/profile/<%=currentUser.id%>">signed in as <%=currentUser.username%></a>
+              <a href="/profile/<%=currentUser.id%>">view profile,<%=currentUser.username%>
               <% if (currentUser.isAdmin) {%>
-                <span>(admin)</span>
-              <% } %>
+                (admin)
+                <% } %>
+              </a>
             </li>
             <li><a href="/profile/logout">Logout</a></li>
           <%  } else { %>

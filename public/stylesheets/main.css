@@ -104,7 +104,13 @@ a.navbar-brand {
 .camp-show-single {
   margin-bottom: 1rem;
 }
+
+.camp-show-single .thumbnail {
+  max-width: 600px;
+}
+
 .camp-show-single .thumbnail img {
+  /* max-width: 600px; */
   height: 25em;
 }
 

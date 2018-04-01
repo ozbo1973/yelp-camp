@@ -1,7 +1,8 @@
 //profile routes
 const passport = require("passport"),
   { route, page, isLoggedIn, profileOwner } = require("../middleware"),
-  { User, Campground } = require("../models");
+  { User, Campground } = require("../models"),
+  keys = require("../config/keys");
 
 r = route("profile", "campgrounds");
 
@@ -41,7 +42,7 @@ module.exports = app => {
   app.post(r.c, (req, res) => {
     const { username, avatar, firstname, lastname, email, isAdmin } = req.body;
     const newUser = new User({ username, avatar, firstname, lastname, email });
-    if (isAdmin === process.env.ADMIN_CODE) {
+    if (isAdmin === keys.ADMIN_CODE) {
       newUser.isAdmin = true;
     }
 
