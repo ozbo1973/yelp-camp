@@ -4,6 +4,7 @@
     <div class="col-md-3">
       <h1><%include ../partials/logo %></h1>
       <ul class="list-group">
+        <li class="list-group-item"><a class="btn btn-block btn-primary" href="/campgrounds">Campground List</a></li>
         <% if (currentUser && foundCamp.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
           <li class="list-group-item"><a class="btn btn-block btn-warning" href="/campgrounds/<%=foundCamp._id%>/edit"><span class="glyphicon glyphicon-pencil"></span> Edit Campground</a> </li>
           <li class="list-group-item">
@@ -14,7 +15,6 @@
         <% } %>
 
         <li class="list-group-item"><a class="btn btn-block btn-success" href="/campgrounds/new"><span class="glyphicon glyphicon-plus"></span> Add New Campground</a></li>
-        <li class="list-group-item"><a class="btn btn-block btn-primary" href="/campgrounds">Campground List</a></li>
       </ul>
 
       <div id="map"></div>
